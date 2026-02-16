@@ -1,4 +1,4 @@
-import {Equipment} from "@/ts/equipment/model";
+import {Equipment} from "@/ts/appendix/model";
 import {PagedModel} from "@/ts/common";
 
 const host = process.env.API

@@ -1,6 +1,6 @@
 import {Metadata} from "next";
 import {Box, Stack, Typography} from "@mui/material";
-import {getAllEquipment} from "@/ts/equipment/action/equipment-actions";
+import {getAllEquipment} from "@/ts/appendix/equipment/action/equipment-actions";
 import Link from "@/components/common";
 
 export const metadata: Metadata = {
