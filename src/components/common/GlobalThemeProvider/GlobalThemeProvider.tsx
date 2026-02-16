@@ -1,13 +1,28 @@
 "use client"
 
-import {Box, createTheme, CssBaseline, ThemeProvider} from "@mui/material";
-import {ReactNode} from "react";
+import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
+import {createContext, ReactNode, useContext, useEffect, useMemo, useState} from "react";
 import {Roboto_Slab} from "next/font/google";
 
 const robotoSlab = Roboto_Slab({
     variable: "--font-roboto-mono",
     subsets: ["latin"],
 });
+
+type ThemeMode = "light" | "dark"
+
+interface ThemeContextType {
+    mode: ThemeMode
+    toggleColorMode: () => void
+}
+
+const ThemeContext = createContext<ThemeContextType>({
+    mode: "light",
+    toggleColorMode: () => {
+    },
+})
+
+export const useThemeMode = () => useContext(ThemeContext)
 
 // Example D&D-inspired colors
 const dndRed = '#b71c1c';       // Deep red, reminiscent of D&D logo
@@ -36,9 +51,9 @@ export const lightTheme = createTheme({
     },
     typography: {
         fontFamily: robotoSlab.style.fontFamily, // Fantasy-inspired font
-        h1: { fontWeight: 700 },
-        h2: { fontWeight: 700 },
-        h3: { fontWeight: 700 },
+        h1: {fontWeight: 700},
+        h2: {fontWeight: 700},
+        h3: {fontWeight: 700},
     },
 });
 
@@ -63,9 +78,9 @@ export const darkTheme = createTheme({
     },
     typography: {
         fontFamily: robotoSlab.style.fontFamily,
-        h1: { fontWeight: 700 },
-        h2: { fontWeight: 700 },
-        h3: { fontWeight: 700 },
+        h1: {fontWeight: 700},
+        h2: {fontWeight: 700},
+        h3: {fontWeight: 700},
     },
 });
 
@@ -73,13 +88,42 @@ export type GlobalThemeProviderProps = {
     children: ReactNode
 }
 
-const GlobalThemeProvider = ({children}: GlobalThemeProviderProps) =>
-    <Box>
-        <ThemeProvider theme={darkTheme} >
-            <CssBaseline/>
-            {children}
-        </ThemeProvider>
-    </Box>
+const GlobalThemeProvider = ({children}: GlobalThemeProviderProps) => {
+    const [mode, setMode] = useState<ThemeMode>("light")
 
+    useEffect(() => {
+        // Load saved theme preference from localStorage
+        const savedMode = localStorage.getItem("theme-mode") as ThemeMode
+        if (savedMode) {
+            setMode(savedMode)
+        } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            // Use system preference as fallback
+            setMode("dark")
+        }
+    }, [])
+
+    const colorMode = useMemo(
+        () => ({
+            mode,
+            toggleColorMode: () => {
+                const newMode = mode === "light" ? "dark" : "light"
+                setMode(newMode)
+                localStorage.setItem("theme-mode", newMode)
+            },
+        }),
+        [mode],
+    )
+
+    const theme = useMemo(() => mode === 'dark' ? darkTheme : lightTheme, [mode])
+
+    return (
+        <ThemeContext.Provider value={colorMode}>
+            <ThemeProvider theme={theme}>
+                <CssBaseline/>
+                {children}
+            </ThemeProvider>
+        </ThemeContext.Provider>
+    )
+}
 
 export default GlobalThemeProvider
