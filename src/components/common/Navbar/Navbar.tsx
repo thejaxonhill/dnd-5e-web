@@ -16,10 +16,18 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
 import {useState} from "react";
-import {navItems} from "@/ts/common";
 import Link, {DarkModeSwitch} from "@/components/common";
-import Image from "next/image"
-import icon from "@/images/Icon2-192x192.png"
+
+const navItems = [
+    {
+        name: 'Appendix',
+        href: '/appendix'
+    },
+    {
+        name: 'Character Creator',
+        href: '/character-creator'
+    }
+]
 
 const Navbar = () => {
     const theme = useTheme()
@@ -30,7 +38,7 @@ const Navbar = () => {
 
     return (
         <>
-            <AppBar>
+            <AppBar position="sticky">
                 <Toolbar sx={{justifyContent: 'space-between'}}>
                     <IconButton
                         size="large"
@@ -43,24 +51,11 @@ const Navbar = () => {
                     <DarkModeSwitch/>
                 </Toolbar>
             </AppBar>
-            <Toolbar/>
             <Drawer open={open} sx={{width: '100vw'}}>
                 <Toolbar sx={{
-                    justifyContent: isXs ? 'flex-end' : 'space-between',
+                    justifyContent: 'flex-end',
                     width: isXs ? '100vw' : undefined
                 }}>
-                    <Link href='/' onClick={closeDialog}>
-                        <Image
-                            src={icon}
-                            alt="Icon"
-                            fill={isXs}
-                            objectFit='contain'
-                            style={!isXs ? {
-                                width: 64,
-                                height: 'auto'
-                            } : undefined}
-                        />
-                    </Link>
                     <IconButton
                         size="large"
                         edge="end"
@@ -81,7 +76,7 @@ const Navbar = () => {
                                 sx={{borderRadius: 3}}
                             >
                                 <ListItemText sx={{textAlign: isXs ? 'center' : undefined}}>
-                                    {navItem.title}
+                                    {navItem.name}
                                 </ListItemText>
                             </ListItemButton>
                         </ListItem>

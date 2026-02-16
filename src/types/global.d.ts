@@ -9,8 +9,19 @@ declare module '@3d-dice/dice-box' {
         [key: string]: unknown;
     }
 
+    export interface DiceRollResult {
+        data: any,
+        dieType: string
+        groupId: number
+        rollId: number
+        sides: number
+        theme: string
+        themeColor: string
+    }
+
     export default class DiceBox {
         constructor(options?: DiceBoxOptions);
+        clear(): void;
 
         /**
          * Many libs are sync; some return a Promise. Allow both.
@@ -20,6 +31,6 @@ declare module '@3d-dice/dice-box' {
         /**
          * Roll notation like "2d20".
          */
-        roll(notation: string): void;
+        roll(notation: string, options?: {theme:string, newStartPoint:boolean}): Promise<DiceRollResult>;
     }
 }
