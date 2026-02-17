@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate-5e-types": "openapi-typescript http://localhost:8080/v3/api-docs -o ./src/types/dnd-5e-schema.d.ts"
   },
   "dependencies": {
     "@3d-dice/dice-box": "^1.1.4",
@@ -18,6 +19,7 @@
     "@mui/material": "^7.3.8",
     "@mui/material-nextjs": "^7.3.8",
     "next": "16.1.6",
+    "openapi-fetch": "^0.17.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -28,6 +30,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "openapi-typescript": "^7.13.0",
     "typescript": "^5"
   }
 }

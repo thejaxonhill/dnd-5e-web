@@ -1,5 +1,5 @@
-import { Box, Typography } from "@mui/material";
-import { Metadata } from "next";
+import {Box, Typography} from "@mui/material";
+import {Metadata} from "next";
 
 export const metadata: Metadata = {
     title: "DND 4 Free | Ability Scores",
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 const AbilityScoresPage = () => {
     return (
-        <Box sx={{mx: 2}}>
+        <Box>
             <Typography
                 color='primary'
                 variant='h4'

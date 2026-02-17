@@ -1,6 +1,6 @@
 import {ReactNode} from "react";
 import AppendixLayoutClient from "@/components/appendix/AppendixLayoutClient";
-import {Typography} from "@mui/material";
+import {Box, Typography} from "@mui/material";
 
 const AppendixLayout = ({children}: Readonly<{ children: ReactNode }>) => {
     return (
@@ -15,7 +15,9 @@ const AppendixLayout = ({children}: Readonly<{ children: ReactNode }>) => {
                 Dungeons & Dragons Appendix
             </Typography>
         }>
-            {children}
+            <Box sx={{ml: 5}}>
+                {children}
+            </Box>
         </AppendixLayoutClient>
     )
 }
