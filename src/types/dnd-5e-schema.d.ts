@@ -616,6 +616,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/equipment/search": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get a paginated list of equipment */
+        get: operations["searchEquipment"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/equipment-categories": {
         parameters: {
             query?: never;
@@ -2602,6 +2619,7 @@ export interface operations {
                 size?: number;
                 /** @description Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported. */
                 sort?: string[];
+                query?: string;
                 name?: string;
             };
             header?: never;
@@ -2639,6 +2657,34 @@ export interface operations {
                 };
                 content: {
                     "*/*": components["schemas"]["EquipmentView"];
+                };
+            };
+        };
+    };
+    searchEquipment: {
+        parameters: {
+            query?: {
+                /** @description Zero-based page index (0..N) */
+                page?: number;
+                /** @description The size of the page to be returned */
+                size?: number;
+                /** @description Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported. */
+                sort?: string[];
+                query?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["PagedModelEquipmentView"];
                 };
             };
         };

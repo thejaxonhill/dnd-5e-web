@@ -9,3 +9,6 @@ export * from './Link'
 
 export {default as Navbar} from "./Navbar"
 export * from "./Navbar"
+
+export {default as SearchBar} from "./SearchBar"
+export * from "./SearchBar"
